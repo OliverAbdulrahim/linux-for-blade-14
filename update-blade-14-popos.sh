@@ -1,72 +1,81 @@
 #!/bin/bash
 
-clear
-cat cat.ansi.txt
-echo
-echo "$(tput bold)Linux for your Blade 14$(tput sgr0)"
-
-echo "
+display_welcome_message() {
+  clear
+  cat cat.ansi.txt
+  echo
+  echo "$(tput bold)Linux for your Blade 14!$(tput sgr0)"
+  echo "
 This script is provided as-is. Use at your own risk!
 
 While I've tested this on a Razer Blade 14 (2022) laptop running Pop!_OS
 and Ubuntu, I can't guarantee that this will work on all devices and
 distributions. Please back up any important data before proceeding.
-"
+  "
+}
 
-# Prompt for the desired kernel version
-read -rp "Enter the kernel version you want to download (for example, 6.2): " kernel_version
+update_packages() {
+  echo "Updating package list and upgrading existing packages..."
+  sudo apt-get -qq update
+  sudo apt-get -qq upgrade
+  echo "Installing required packages..."
+  sudo apt-get -qq install update-manager-core git
+}
 
-# Update package list and upgrade existing packages
-echo "Updating package list and upgrading existing packages..."
-sudo apt-get -qq update
-sudo apt-get -qq upgrade
+install_kernel_files() {
+  current_date=$(date +"%Y-%m-%d-%H:%M:%S %z")
+  directory="/tmp/$current_date-blade-14-update"
+  kernel_directory="$directory/$1"
 
-# Install required packages
-echo "Installing required packages..."
-sudo apt-get -qq install update-manager-core git
+  echo "Creating $directory to store downloaded files..."
+  mkdir -p "$kernel_directory"
+  cd "$kernel_directory" || exit
 
-# Store files in /tmp
-current_date=$(date +"%Y-%m-%d-%H:%M:%S %z")
-directory="/tmp/$current_date-blade-14-update"
+  echo "Downloading kernel files for $1..."
 
-echo "Creating $directory to store downloaded files..."
-kernel_directory="$directory/$kernel_version"
-mkdir -p "$kernel_directory"
-cd "$kernel_directory" || exit
+  # Create the URL for the specified kernel version
+  base_url="https://kernel.ubuntu.com/~kernel-ppa/mainline/"
+  url="${base_url}v${1}/amd64/"
 
-# Download kernel files
-echo "Downloading kernel files for $kernel_version..."
+  # Download kernel package files
+  wget -qc -r -np -nH --no-directories --reject-regex '.*unsigned.*|.*lowlatency.*' -e robots=off --random-wait -R html -A deb,CHECKSUMS $url
 
-# Create the URL for the specified kernel version
-base_url="https://kernel.ubuntu.com/~kernel-ppa/mainline/"
-url="${base_url}v${kernel_version}/amd64/"
+  echo "Finished downloading kernel files!"
 
-# Download kernel package files
-wget -qc -r -np -nH --no-directories --reject-regex '.*unsigned.*|.*lowlatency.*' -e robots=off --random-wait -R html -A deb,CHECKSUMS $url
+  echo "Installing kernel files..."
+  sudo dpkg -i *.deb
+  cd ../..
+}
 
-echo "Finished downloading kernel files!"
+install_ath11k_drivers() {
+  echo "Cloning linux-firmware repository..."
+  git clone --quiet git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git firmware
+  echo "Copying ath11k Wi-Fi driver to /lib/firmware/..."
+  sudo cp -r linux-firmware/ath11k/ /lib/firmware/
+}
 
-# Install kernel files
-echo "Installing kernel files..."
-sudo dpkg -i *.deb
+prompt_reboot() {
+  read -rp "Reboot your system now? (y/n): " reboot_choice
+  if [ "$reboot_choice" = "y" ]; then
+    echo "Rebooting system..."
+    sudo reboot
+  else
+    echo "You will need to manually reboot your Blade 14 changes to take effect."
+  fi
+}
 
-cd ..
+main() {
+  display_welcome_message
 
-# Get latest linux-firmware repository
-echo "Cloning linux-firmware repository..."
-git clone --quiet git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git firmware
+  # Prompt for the desired kernel version
+  read -rp "Enter the kernel version you want to download (for example, 6.2): " kernel_version
 
-# Copy the ath11k driver (see https://wireless.wiki.kernel.org/en/users/drivers/ath11k/installation)
-echo "Copying ath11k Wi-Fi driver to /lib/firmware/..."
-sudo cp -r linux-firmware/ath11k/ /lib/firmware/
+  update_packages
+  install_kernel_files $kernel_version
+  install_ath11k_drivers
 
-echo "Kernel update complete."
+  echo "Kernel update complete."
+  prompt_reboot
+}
 
-# Prompt the user to reboot their system
-read -rp "Reboot your system now? ( y / n ): " reboot_choice
-if [ "$reboot_choice" = "y" ]; then
-  echo "Rebooting system..."
-  sudo reboot
-else
-  echo "You will need to manually reboot your Blade 14 changes to take effect."
-fi
+main
