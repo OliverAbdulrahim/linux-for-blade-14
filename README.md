@@ -22,12 +22,12 @@ For example:
 
 ### Recommended distributions for your Blade 14
 
-- [Pop!_OS](https://pop.system76.com/)
+- [**Pop!_OS**](https://pop.system76.com/)
     - Highly recommended! In my testing, this Linux distribution is very stable on the Blade 14
     - Power management is good, with no issues with shutting down or suspending
     - Hybrid graphics support out of the box
     - Battery life: 8-9 hours of general use
-- [Ubuntu](https://ubuntu.com/)
+- [**Ubuntu**](https://ubuntu.com/)
     - Classic, but will require more configuration than Pop!_OS to get your Blade 14's integrated / discrete graphics
       working properly
     - Power management out of the box is not great. I think this is due to the OS defaulting to using the dedicated GPU
@@ -74,4 +74,4 @@ sh /linux-fixes-blade-14/update-blade-14.sh
 Follow the on-screen commands, which will guide you through the installation. At the end, you'll be asked to reboot your
 machine. This completes the installation of the kernel update and firmware install.
 
-Should you need the files this repository downloads again, you can always run them
+Should you need the files this repository downloads again, you can find them again in your `/tmp` folder.
