@@ -3,21 +3,20 @@
 This repository has a collection of fixes for your Razer Blade 14 (2022) that runs an Ubuntu-derived Linux operating
 system.
 
-By default, you may run into Wi-Fi, Bluetooth, or microphone issues after installing your Ubuntu-based distro. Run the
-main script in this repository just after installing Linux to fix these problems.
-
-Note: you'll need access to the internet while running this fix main script.
+By default, you may run into Wi-Fi, Bluetooth, or microphone issues after installing your Ubuntu-based distro. Use the
+tools I've included in this repository to fix this!
 
 ## How does this fix my Blade 14?
 
-By default, your Linux installation may be missing firmware that allows Linux to talk to your hardware. Luckily,
-contributors to Linux have implemented support for the hardware inside your Blade 14.
+By default, your Linux installation may not be able to talk to your hardware. Luckily, contributors to Linux have
+implemented support for the hardware inside your Blade 14. Making it all work is a matter of getting the fixes included 
+into your Linux installation.
 
 For example:
 
 - **Wi-Fi and Bluetooth fix:** The Blade 14 comes with a Qualcomm Atheros QCNFA765 wireless adapter. This is the
-  hardware that makes your Wi-Fi and Bluetooth work. A script in this repo can copy this firmware from the
-  [Linux firmware git tree](https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/) and installs
+  hardware that makes your Wi-Fi and Bluetooth work. A script in this repo can copy this firmware from the latest
+  [Linux firmware git tree](https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/) and install
   it to your device.
 - **Microphone fix:** 6.2+ Linux kernel contains [support](https://bugzilla.kernel.org/show_bug.cgi?id=216801) for the
   Blade 14's built-in microphone array. A script in this repo can download and install a kernel version you specify.
@@ -101,7 +100,8 @@ Start the script with the following command:
 sh linux-fixes-blade-14/scripts/update-blade-14.sh
 ````
 
-Follow the on-screen commands, which will guide you through the installation. At the end, you'll be asked to reboot your
+Follow the on-screen instructions, which will guide you through the installation. At the end, you'll be asked to reboot
+your
 Blade 14. This completes the installation of the kernel update and firmware install.
 </details>
 
@@ -120,16 +120,19 @@ Alternatively, you can
 [download a snapshot of this repository's main branch](https://github.com/OliverAbdulrahim/linux-for-blade-14/archive/refs/heads/main.zip)
 and extract it.
 
-Next, build the `tar.gz` archive by running the following command.
+Next, build the archive by running the following command:
 
 ```shell
 sh linux-fixes-blade-14/scripts/offline-update-generate.sh
 ```
 
+Follow the on-screen instructions, which will guide you through the process.
+
 If you're using Windows, you can run this shell script
 with [Windows Subsystem For Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/faq).
 
-Once complete, transfer this archive to an external drive, flash drive, or memory card.
+Once complete, you'll send up with a `tar.gz` archive at the directory "linux-for-blade-14/out". transfer this archive
+to an external drive, flash drive, or memory card.
 
 ```shell
 # Replace directory with a path within your removable media
