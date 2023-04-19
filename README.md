@@ -1,15 +1,15 @@
 # Welcome!
 
-This repository has a collection of fixes for your Razer Blade 14 (2022) that runs an Ubuntu-derived Linux operating
-system.
+This repository has a collection of portable fixes for your Razer Blade 14 (2022) that runs an Ubuntu-derived Linux
+operating system.
 
 By default, you may run into Wi-Fi, Bluetooth, or microphone issues after installing your Ubuntu-based distro. Use the
 tools I've included in this repository to fix this!
 
-## How does this fix my Blade 14?
+### What problems does this solve?
 
 By default, your Linux installation may not be able to talk to your hardware. Luckily, contributors to Linux have
-implemented support for the hardware inside your Blade 14. Making it all work is a matter of getting the fixes included 
+implemented support for the hardware inside your Blade 14. Making it all work is a matter of getting the fixes included
 into your Linux installation.
 
 For example:
@@ -21,12 +21,9 @@ For example:
 - **Microphone fix:** 6.2+ Linux kernel contains [support](https://bugzilla.kernel.org/show_bug.cgi?id=216801) for the
   Blade 14's built-in microphone array. A script in this repo can download and install a kernel version you specify.
 
-## Getting started
-
 ### Recommended distributions for your Blade 14
 
-To apply these fixes, you'll need to install Linux on your Blade 14. Check out these distros:
-<details><summary>Show recommendations</summary>
+To apply the fixes I've provided, you'll first need to install Linux on your Blade 14. Check out these distros:
 
 - [**Pop!_OS**](https://pop.system76.com/)
     - Highly recommended! In my testing, this Linux distribution is very stable on the Blade 14
@@ -43,7 +40,16 @@ To apply these fixes, you'll need to install Linux on your Blade 14. Check out t
     - Installing [System76 Power Management](https://github.com/pop-os/system76-power) may address these issues, but I
       haven't attempted to do that!
 
-</details>
+# How to use
+
+## ⚠️ Disclaimer
+
+Before you start, please understand that everything in this repository are provided as-is. Use at your own risk. While
+I've tested them on a **Razer Blade 14 (RZ09-0427)** laptop running Pop!_OS and Ubuntu, I cannot guarantee that this
+will work on all combinations of hardware and distributions.
+
+**Running this script may lead to unintended consequences, such as an inoperable operating system and/or permanent data
+loss!** Continue on only if you understand and accept this risk. Please back up any important data before proceeding.
 
 ## Installation guide
 
@@ -52,29 +58,30 @@ Once you have Linux installed on your machine, you can get started.
 Before you install anything, check to see if your Wi-Fi, Bluetooth, and microphone are functioning. If so, you don't
 need to run these anything I've provided here unless you want the latest firmware and kernel!
 
-If you decide to continue, follow one of two paths:
+If you decide to continue, follow one of the two options provided below.
 
-* **Online installation (recommended)** requires internet access via Ethernet while booted into Linux on your Blade 14
-* **Offline installation** requires an internet connection on another device, or on another operating system on your
-  Blade 14, like your default Windows installation
+### Option A: Online installation (recommended)
 
-### ⚠️ Disclaimer
+You will download and apply the updates while inside your Blade 14's Linux installation.
 
-Before you start, please understand that the scripts in this repository are provided as-is. Use at your own risk. While
-I've tested them on a Razer Blade 14 (RZ09-0427) laptop running Pop!_OS and Ubuntu, I can't guarantee that this will
-work on all devices and distributions.
-
-**Running this script may lead to permanent data loss!** Please back up any important data before proceeding.
-
-### Online installation
+#### Requirements
 
 <details>
-<summary>Show steps</summary>
+<summary>Show requirements</summary>
 
-To complete these steps, you'll need an Ethernet connection with your Blade 14. Grab a USB A- or USB C-to-Ethernet
-adapter or use a USB hub with an RJ45 port.
+* A Linux installation on your Blade 14
+* Internet access via a wired connection (Ethernet)
+    * Use a USB A- or USB C-to-Ethernet adapter, or
+    * Use a USB hub with an RJ45 port
 
-Boot into Linux on your Blade 14 and establish a wired connect to the internet.
+</details>
+
+#### Installation steps
+
+<details>
+<summary>Show installation steps</summary>
+
+Boot into Linux on your Blade 14 and establish a wired connection to the Internet.
 
 First, you'll want to get a local copy of this repository. You can use the `git` command:
 
@@ -88,29 +95,47 @@ If you get a message like `bash: git: command not found`, run the following:
 sudo apt-get install git
 ```
 
-Next, you may need to run this next command, which makes the script you'll run next executable:
+You may need to use `chmod` to make the script you'll run next executable:
 
 ```shell
-chmod +x linux-fixes-blade-14/scripts/update-blade-14.sh
+chmod +x linux-fixes-blade-14/scripts/online-update-complete.sh
 ```
 
 Start the script with the following command:
 
 ```shell
-sh linux-fixes-blade-14/scripts/update-blade-14.sh
+sh linux-fixes-blade-14/scripts/online-update-complete.sh
 ````
 
 Follow the on-screen instructions, which will guide you through the installation. At the end, you'll be asked to reboot
-your
-Blade 14. This completes the installation of the kernel update and firmware install.
+your Blade 14, which will complete the installation!
 </details>
 
-### Offline installation
+### Option B: Offline installation
+
+You will generate an archive with everything you need while outside your Blade 14's Linux installation. Then, you will
+transfer this archive to Linux, unpack it, and apply the updates.
+
+#### Requirements
+
+<details>
+<summary>Show requirements</summary>
+
+* A Linux installation on your Blade 14
+* Another device or operating system with access to the Internet and the ability to run shell scripts
+    * If you're using Windows, you can run the scripts
+      with [Windows Subsystem For Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/faq)
+    * You could use your Blade 14's default Windows installation with WSL
+* Removable media (external drive, flash drive, or memory card) with at least 200MB of free space
+
+</details>
+
+#### Installation steps
 
 <details>
 <summary>Show steps</summary>
 
-On a device that has an internet connection, download this repository.
+On a device that has an Internet connection, download this repository.
 
 ```shell
 git clone https://github.com/OliverAbdulrahim/linux-fixes-blade-14.git
@@ -120,6 +145,12 @@ Alternatively, you can
 [download a snapshot of this repository's main branch](https://github.com/OliverAbdulrahim/linux-for-blade-14/archive/refs/heads/main.zip)
 and extract it.
 
+You may need to use `chmod` to make the script you'll run next executable:
+
+```shell
+chmod +x linux-fixes-blade-14/scripts/offline-update-generate.sh
+```
+
 Next, build the archive by running the following command:
 
 ```shell
@@ -128,22 +159,25 @@ sh linux-fixes-blade-14/scripts/offline-update-generate.sh
 
 Follow the on-screen instructions, which will guide you through the process.
 
-If you're using Windows, you can run this shell script
-with [Windows Subsystem For Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/faq).
-
-Once complete, you'll send up with a `tar.gz` archive at the directory "linux-for-blade-14/out". transfer this archive
-to an external drive, flash drive, or memory card.
+Once complete, you'll have an archive at the directory `linux-for-blade-14/out/*.tar.gz`. transfer this archive to an
+external drive, flash drive, or memory card.
 
 ```shell
-# Replace directory with a path within your removable media
 cp out/*.tar.gz directory
 ```
 
-Then, boot your Blade 14's Linux installation. Run this `tar` command to extract the files:
+Then, boot your Blade 14's Linux installation. Run this `tar` command to extract the files. Replace 'directory' with
+where you stored the archive in your removable media. You can also use a GUI like Archive Manager to extract this, if
+your distribution has one installed by default.
 
 ```shell
-# Replace directory with where you stored the archive in your removable media
 tar xvf directory/*.tar.gz
+```
+
+You may need to use `chmod` to make the script you'll run next executable:
+
+```shell
+chmod +x directory/scripts/offline-update-apply.sh
 ```
 
 Finally, complete the installation with the following:
@@ -156,7 +190,12 @@ sh directory/scripts/offline-update-apply.sh
 
 # FAQ
 
-Why haven't you provided an archive containing the offline installation files?
-I don't want to distribute kernel files. Your kernel and firmware is critical to the operation of your device. I'll
-happily offer you the tools to get the kernel files, but I won't package them up and distribute them.
+**Q: Why haven't you provided an archive containing the offline installation files?**
 
+A: While I'll happily offer you the tools to get the Linux kernel and firmware from a secure source, I won't distribute
+these files! Here's why:
+
+* Licensing issues which may prohibit distributing Linux firmware and kernel files
+* That aside, any files I package up will soon become outdated = potential security risks and compatibility issues
+
+In short, please use the tools I've provided in this repository to get the latest kernel and firmware files yourself!
