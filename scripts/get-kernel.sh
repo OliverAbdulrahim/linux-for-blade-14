@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 download_kernel_files() {
   if [ -z "$1" ]; then
@@ -6,14 +6,10 @@ download_kernel_files() {
     exit 1
   fi
 
-  kernel_directory="$save_directory/linux-kernel/$1"
+  kernel_directory="$save_directory/kernel"
+  mkdir -pv "$kernel_directory"
 
-  echo -n "Creating $kernel_directory to store kernel... "
-  mkdir -p "$kernel_directory"
-  echo "Done!"
-
-  echo -n "Downloading kernel files for $1... "
-
+  echo -n "Downloading $1 kernel files... "
   base_url="https://kernel.ubuntu.com/~kernel-ppa/mainline/"
   url="${base_url}v${1}/amd64/"
 
@@ -29,7 +25,7 @@ download_kernel_files() {
   # --random-wait: randomize the wait between requests
   # -R: reject html files
   # -A: accept .deb files and checksum file
-  wget -qc -r -np -nH \
+  wget -q -c -r -np -nH \
     --no-directories \
     --reject-regex '.*unsigned.*|.*lowlatency.*' \
     -e robots=off \
@@ -38,9 +34,7 @@ download_kernel_files() {
     -A deb,CHECKSUMS \
     -P "$kernel_directory" \
     "$url"
-
   echo "Done!"
-  echo "Note: you must install them for changes to take effect."
 }
 
 install_kernel_files() {
