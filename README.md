@@ -8,9 +8,9 @@ tools I've included in this repository to fix this!
 
 ### What problems does this solve?
 
-By default, your Linux installation may not be able to talk to your hardware. Luckily, contributors to Linux have
-implemented support for the hardware inside your Blade 14. Making it all work is a matter of getting the fixes included
-into your Linux installation.
+By default, your Linux installation may not be able to talk to your Blade 14's devices. Luckily, contributors to Linux
+have implemented support for these. Making it all work is a matter of getting the right files included into your Linux
+installation.
 
 For example:
 
@@ -25,20 +25,20 @@ For example:
 
 To apply the fixes I've provided, you'll first need to install Linux on your Blade 14. Check out these distros:
 
-- [**Pop!_OS**](https://pop.system76.com/)
-    - Highly recommended! In my testing, this Linux distribution is very stable on the Blade 14
-    - Power management is good, with no issues with shutting down or suspending
-    - Hybrid graphics support out of the box
-    - Battery life: 8-9 hours of general use
+#### [**Pop!_OS**](https://pop.system76.com/)
+- Highly recommended! In my testing, this Linux distribution is very stable on the Blade 14
+- Power management is good, with no issues with shutting down or suspending
+- Hybrid graphics support out of the box
+- Battery life: 8-9 hours of general use
 
-- [**Ubuntu**](https://ubuntu.com/)
-    - Classic, but will require more configuration than Pop!_OS to get your Blade 14's integrated / discrete graphics
-      working properly
-    - Power management out of the box is not great. I think this is due to the OS defaulting to using the dedicated GPU
-      for all tasks
-    - You may run into problems with the device not suspending or powering off
-    - Installing [System76 Power Management](https://github.com/pop-os/system76-power) may address these issues, but I
-      haven't attempted to do that!
+#### [**Ubuntu**](https://ubuntu.com/)
+- Classic, but will require more configuration than Pop!_OS to get your Blade 14's integrated / discrete graphics 
+  working properly
+- Power management out of the box is not great. I think this is due to the OS defaulting to using the dedicated GPU
+  for all tasks
+- You may run into problems with the device not suspending or powering off
+- Installing [System76 Power Management](https://github.com/pop-os/system76-power) may address these issues, but I
+  haven't attempted to do that!
 
 # How to use
 
