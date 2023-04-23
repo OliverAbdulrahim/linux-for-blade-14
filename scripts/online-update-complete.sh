@@ -17,7 +17,7 @@ read -rp "Enter the kernel version you want to download (for example, 6.2): " ke
 
 . scripts/get-kernel.sh
 download_kernel_files "$kernel_version"
-install_kernel_files "$save_directory/kernel/$kernel_version"
+install_kernel_files "$save_directory/kernel"
 
 . scripts/get-firmware.sh
 get_ath11k_firmware
