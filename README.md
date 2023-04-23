@@ -3,8 +3,8 @@
 This repository has a collection of portable fixes for your Razer Blade 14 (2022) that runs an Ubuntu-derived Linux
 operating system.
 
-By default, you may run into Wi-Fi, Bluetooth, or microphone issues after installing your Ubuntu-based distro. Use the
-tools I've included in this repository to fix this!
+By default, you may run into Wi-Fi, Bluetooth, or microphone issues after installing a Linux distro on your Blade 14.
+Use the tools I've included in this repository to fix these!
 
 ### What problems does this solve?
 
@@ -45,8 +45,8 @@ To apply the fixes I've provided, you'll first need to install Linux on your Bla
 ## ⚠️ Disclaimer
 
 Before you start, please understand that everything in this repository are provided as-is. Use at your own risk. While
-I've tested them on a **Razer Blade 14 (RZ09-0427)** laptop running Pop!_OS and Ubuntu, I cannot guarantee that this
-will work on all combinations of hardware and distributions.
+I've tested everything I've provided on a **Razer Blade 14 (RZ09-0427)** laptop running Pop!_OS and Ubuntu, I cannot
+guarantee functionality across all combinations of hardware and distributions.
 
 **Running this script may lead to unintended consequences, such as an inoperable operating system and/or permanent data
 loss!** Continue on only if you understand and accept this risk. Please back up any important data before proceeding.
@@ -89,7 +89,7 @@ First, you'll want to get a local copy of this repository. You can use the `git`
 git clone https://github.com/OliverAbdulrahim/linux-fixes-blade-14.git
 ```
 
-If you get a message like `bash: git: command not found`, run the following:
+If you get a message like `git: command not found`, run the following:
 
 ```shell
 sudo apt-get install git
@@ -107,13 +107,13 @@ Start the script with the following command:
 sh linux-fixes-blade-14/scripts/online-update-complete.sh
 ````
 
-Follow the on-screen instructions, which will guide you through the installation. At the end, you'll be asked to reboot
-your Blade 14, which will complete the installation!
+Follow the on-screen instructions, which will guide you through the process. At the end, you'll reboot your Blade 14,
+which completes the installation.
 </details>
 
 ### Option B: Offline installation
 
-You will generate an archive with everything you need while outside your Blade 14's Linux installation. Then, you will
+You will generate an archive with everything you need while outside your Blade 14's Linux environment. Then, you will
 transfer this archive to Linux, unpack it, and apply the updates.
 
 #### Requirements
@@ -133,7 +133,7 @@ transfer this archive to Linux, unpack it, and apply the updates.
 #### Installation steps
 
 <details>
-<summary>Show steps</summary>
+<summary>Show installation steps</summary>
 
 On a device that has an Internet connection, download this repository.
 
